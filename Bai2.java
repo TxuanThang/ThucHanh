@@ -1,28 +1,39 @@
-import java.util.Scanner;
-public class Bai2 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Nhập vào số n: ");
-        int n = sc.nextInt();
-        int count = 0;
-            if(n<2){
-                System.out.println("n không phải là số nguyên tố");
-            }
-            else{
-                for (int i = 2; i < (n - 1); i++){
-                      if (n % i == 0){
-                          count++;
-                       }   
-                 }
-            }
-            if(count == 0){
-                System.out.println("n là số nguyên tố");
-            }
-            else{
-                System.out.println("n không là số nguyên tố");
-            }
-    }
-  
-    
-}
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
+public class Bai2 extends Thread {
+    String filename;
+
+    public Bai2(String filename) {
+        this.filename = filename;
+    }
+
+    @Override
+    public void run() {
+        try {
+            File f = new File(filename);
+            FileReader fr = new Bai2(f);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+                Thread.sleep(2000);
+            }
+            fr.close();
+            br.close();
+        } catch (Exception ex) {
+            System.out.println("Loi doc file: " + ex);
+        }
+    }
+
+    public static void main(String[] args) {
+        FileTReader t1 = new Bai2("D:\\CS1\\PhatTrienHeThongTichHop\\BaiTap\\Tuan3\\text1.txt");
+        FileTReader t2 = new Bai2("D:\\CS1\\PhatTrienHeThongTichHop\\BaiTap\\Tuan3\\text1.txt");
+        FileTReader t3 = new Bai2("D:\\CS1\\PhatTrienHeThongTichHop\\BaiTap\\Tuan3\\text1.txt");
+        t1.start();
+        t2.start();
+        t3.start();
+
+    }
+}
